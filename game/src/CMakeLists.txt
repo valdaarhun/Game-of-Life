@@ -1,5 +1,5 @@
 set(SOURCE_FILES main.cpp)
-set(LIBRARY_FILES window_lib grid_lib)
+set(LIBRARY_FILES world_lib grid_lib)
 
 find_package(SDL2 REQUIRED)
 add_compile_options(-Wall -D_REENTRANT)
