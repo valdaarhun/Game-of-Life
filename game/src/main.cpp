@@ -16,9 +16,11 @@ private:
 int main(){
     Game::Window win(1001, 801);
     Game::Grid grid;
-    grid.drawGrid(win.getRenderer());
+    SDL_Renderer *renderer = win.getRenderer();
+    grid.drawGrid(renderer);
 
     SDL_Event event;
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
 
     while(event.type != SDL_QUIT){
         if(event.type == SDL_MOUSEBUTTONDOWN){
@@ -27,7 +29,7 @@ int main(){
             printf("(%d, %d)\n", x, y);
             printf("(%d, %d)\n\n", 10 * (x / 10), 10 * (y / 10));
             event.type = -1;
-            grid.colorCell(x, y);
+            grid.colorCell(renderer, x, y);
         }
         SDL_PollEvent(&event);
     }

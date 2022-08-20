@@ -18,7 +18,7 @@ namespace Game{
 
     public:
         void drawGrid(SDL_Renderer *);
-        void colorCell(int , int);
+        void colorCell(SDL_Renderer *, int , int);
     };
 }
 

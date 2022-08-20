@@ -24,5 +24,12 @@ void Game::Grid::drawGrid(SDL_Renderer *renderer){
     SDL_RenderPresent(renderer);
 }
 
-void Game::Grid::colorCell(int x, int y){
+void Game::Grid::colorCell(SDL_Renderer *renderer, int x, int y){
+    SDL_Rect rect;
+    rect.h = PIXELS_PER_CELL;
+    rect.w = PIXELS_PER_CELL;
+    rect.x = 10 * (x / 10);
+    rect.y = 10 * (y / 10);
+    SDL_RenderFillRect(renderer, &rect);
+    SDL_RenderPresent(renderer);
 }
