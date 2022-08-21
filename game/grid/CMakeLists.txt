@@ -4,4 +4,4 @@ target_include_directories(grid_lib
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}/../bit_operations/
 )
-target_link_libraries(grid_lib PRIVATE bits_lib)
+target_link_libraries(grid_lib PRIVATE utils_lib)
