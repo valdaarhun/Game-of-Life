@@ -1,36 +1,39 @@
 #include <SDL2/SDL.h>
 
-#include "window/window.h"
+#include "world/world.h"
 #include "grid/grid.h"
 
-constexpr int PIXELS_X = 1000;
-constexpr int PIXELS_Y = 800;
-constexpr int PIXELS_PER_CELL = 10;
-
-class Cell{
-private:
-    int cx;
-    int cy;
-};
-
 int main(){
-    Game::Window win(1001, 801);
+    Game::World world(1001, 801);
     Game::Grid grid;
-    SDL_Renderer *renderer = win.getRenderer();
-    grid.drawGrid(renderer);
+    grid.setRenderer(world.getRenderer());
+    world.drawGrid();
 
     SDL_Event event;
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
+    bool quit = false;
 
-    while(event.type != SDL_QUIT){
-        if(event.type == SDL_MOUSEBUTTONDOWN){
+    while(!quit){
+        event.type = -1;
+        SDL_PollEvent(&event);
+        switch(event.type){
+        case SDL_QUIT:
+            quit = true;
+            break;
+        case SDL_MOUSEBUTTONDOWN:
             int x, y;
             SDL_GetMouseState(&x, &y);
-            printf("(%d, %d)\n", x, y);
-            printf("(%d, %d)\n\n", 10 * (x / 10), 10 * (y / 10));
-            event.type = -1;
-            grid.colorCell(renderer, x, y);
+            if (event.button.button == SDL_BUTTON_LEFT)
+                grid.createCell(x, y);
+            else if (event.button.button == SDL_BUTTON_RIGHT)
+                grid.killCell(x, y);
+        case SDL_KEYDOWN:
+            if (event.key.keysym.scancode == SDL_SCANCODE_RETURN)
+                printf("'Enter' was pressed!!\n");
+        default:
+            break;
+            // else if (event.button.button == SDL_BUTTON_RIGHT){
+            //     Game::Grid::killCell(&event.button.x, &event.button.y);
+            // }
         }
-        SDL_PollEvent(&event);
     }
 }

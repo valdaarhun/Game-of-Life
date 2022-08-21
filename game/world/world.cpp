@@ -1,16 +1,7 @@
 #include <SDL2/SDL.h>
 
-#include "../bit_operations/bits.h"
+#include "../utilities/utils.h"
 #include "world.h"
-
-extern const int PIXELS_X;
-extern const int PIXELS_Y;
-extern const int PIXELS_PER_CELL;
-
-static constexpr Uint32 BLACK = 0x000000;
-static constexpr Uint32 SLATE = 0x123456;
-static constexpr Uint32 WHITE = 0xffffff;
-static constexpr Uint8 ALPHA = 0;
 
 Game::World::World(int t_width, int t_height){
     m_width = t_width;
@@ -39,13 +30,10 @@ void Game::World::drawGridLines_YAxis(){
 }
 
 void Game::World::drawGrid(){
-    SDL_SetRenderDrawColor(m_renderer, SET_BYTE(SLATE >> 16), SET_BYTE(SLATE >> 8), SET_BYTE(SLATE), ALPHA);
+    SDL_SetRenderDrawColor(m_renderer, SET_BYTE(BLUE >> 16), SET_BYTE(BLUE >> 8), SET_BYTE(BLUE), ALPHA);
     drawGridLines_XAxis();
     drawGridLines_YAxis();
     SDL_RenderPresent(m_renderer);
-
-    /* Reset color to white */
-    SDL_SetRenderDrawColor(m_renderer, SET_BYTE(WHITE >> 16), SET_BYTE(WHITE >> 8), SET_BYTE(WHITE), ALPHA);
 }
 
 Game::World::~World(){
