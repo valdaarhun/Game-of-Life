@@ -5,9 +5,10 @@
 
 int main(){
     Game::World world(1001, 801);
+    world.drawGrid();
+
     Game::Grid grid;
     grid.setRenderer(world.getRenderer());
-    world.drawGrid();
 
     SDL_Event event;
     bool quit = false;
@@ -28,12 +29,9 @@ int main(){
                 grid.killCell(x, y);
         case SDL_KEYDOWN:
             if (event.key.keysym.scancode == SDL_SCANCODE_RETURN)
-                printf("'Enter' was pressed!!\n");
+                grid.run();
         default:
             break;
-            // else if (event.button.button == SDL_BUTTON_RIGHT){
-            //     Game::Grid::killCell(&event.button.x, &event.button.y);
-            // }
         }
     }
 }
