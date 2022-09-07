@@ -163,6 +163,8 @@ int main(){
                 // getNeighbourCount();
                 running = true;
             }
+            else if (event.key.keysym.scancode == SDL_SCANCODE_Q)
+                quit = true;
             break;
         default:
             break;
