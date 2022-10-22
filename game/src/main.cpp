@@ -140,11 +140,14 @@ int main(){
     SDL_Init(SDL_INIT_VIDEO);
     window = SDL_CreateWindow("Game of Life", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIN_WIDTH, WIN_HEIGHT, SDL_WINDOW_RESIZABLE);
     surface = SDL_GetWindowSurface(window);
+    std::vector< std::vector< Uint8 > > temp(N_ROWS, std::vector< Uint8 > (N_COLS, 0));
+    grid = temp;
 
-    buildWorld();
+
+    // buildWorld();
     // std::vector< std::pair< int, int > > cells = getTemplate();
     // buildFromTemplate(cells);
-    getNeighbourCount();
+    // getNeighbourCount();
     
 
     SDL_Event event;
@@ -160,11 +163,24 @@ int main(){
         case SDL_KEYDOWN:
             if (event.key.keysym.scancode == SDL_SCANCODE_RETURN){
                 // nextGeneration();
-                // getNeighbourCount();
+                getNeighbourCount();
                 running = true;
             }
             else if (event.key.keysym.scancode == SDL_SCANCODE_Q)
                 quit = true;
+            break;
+        case SDL_MOUSEBUTTONDOWN:
+            if (running)
+                break;
+            if (event.button.button == SDL_BUTTON_LEFT){
+                int x, y;
+                SDL_GetMouseState(&x, &y);
+                x /= CELL_SIZE;
+                y /= CELL_SIZE;
+                // printf("%d %d\n", x, y);
+                drawCell(x, y, 255);
+                grid[y][x] |= ALIVE;
+            }
             break;
         default:
             break;
